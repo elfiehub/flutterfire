@@ -223,20 +223,20 @@ NSString *const kMessagingPresentationOptionsUserDefaults =
         [UNUserNotificationCenter currentNotificationCenter];
 
     if (notificationCenter.delegate != nil) {
-#if !TARGET_OS_OSX
-      // If the App delegate exists and it conforms to UNUserNotificationCenterDelegate then we
-      // don't want to replace it on iOS as the earlier call to `[_registrar
-      // addApplicationDelegate:self];` will automatically delegate calls to this plugin. If we
-      // replace it, it will cause a stack overflow as our original delegate forwarding handler
-      // below causes an infinite loop of forwarding. See
-      // https://github.com/FirebaseExtended/flutterfire/issues/4026.
-      if ([GULApplication sharedApplication].delegate != nil &&
-          [[GULApplication sharedApplication].delegate
-              conformsToProtocol:@protocol(UNUserNotificationCenterDelegate)]) {
-        // Note this one only executes if Firebase swizzling is **enabled**.
-        shouldReplaceDelegate = NO;
-      }
-#endif
+// #if !TARGET_OS_OSX
+//       // If the App delegate exists and it conforms to UNUserNotificationCenterDelegate then we
+//       // don't want to replace it on iOS as the earlier call to `[_registrar
+//       // addApplicationDelegate:self];` will automatically delegate calls to this plugin. If we
+//       // replace it, it will cause a stack overflow as our original delegate forwarding handler
+//       // below causes an infinite loop of forwarding. See
+//       // https://github.com/FirebaseExtended/flutterfire/issues/4026.
+//       if ([GULApplication sharedApplication].delegate != nil &&
+//           [[GULApplication sharedApplication].delegate
+//               conformsToProtocol:@protocol(UNUserNotificationCenterDelegate)]) {
+//         // Note this one only executes if Firebase swizzling is **enabled**.
+//         shouldReplaceDelegate = NO;
+//       }
+// #endif
 
       if (shouldReplaceDelegate) {
         _originalNotificationCenterDelegate = notificationCenter.delegate;
