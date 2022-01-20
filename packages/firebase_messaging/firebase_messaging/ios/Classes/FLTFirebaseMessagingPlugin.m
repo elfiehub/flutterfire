@@ -300,11 +300,6 @@ NSString *const kMessagingPresentationOptionsUserDefaults =
     [_originalNotificationCenterDelegate userNotificationCenter:center
                                         willPresentNotification:notification
                                           withCompletionHandler:completionHandler];
-    UNNotificationPresentationOptions presentationOptions = UNNotificationPresentationOptionNone;
-    presentationOptions |= UNNotificationPresentationOptionAlert;
-    presentationOptions |= UNNotificationPresentationOptionBadge;
-    presentationOptions |= UNNotificationPresentationOptionSound;
-    completionHandler(presentationOptions);
   } else {
     UNNotificationPresentationOptions presentationOptions = UNNotificationPresentationOptionNone;
     NSDictionary *persistedOptions = [[NSUserDefaults standardUserDefaults]
