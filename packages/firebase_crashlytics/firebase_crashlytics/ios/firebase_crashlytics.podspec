@@ -3,6 +3,12 @@ require 'yaml'
 pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
 library_version = pubspec['version'].gsub('+', '-')
 
+# Add upload-symbols script to the Flutter target.
+current_dir = Dir.pwd
+calling_dir = File.dirname(__FILE__)
+project_dir = calling_dir.slice(0..(calling_dir.index('/.symlinks')))
+system("ruby #{current_dir}/crashlytics_add_upload_symbols -f -p #{project_dir} -n Runner.xcodeproj")
+
 if defined?($FirebaseSDKVersion)
   Pod::UI.puts "#{pubspec['name']}: Using user specified Firebase SDK version '#{$FirebaseSDKVersion}'"
   firebase_sdk_version = $FirebaseSDKVersion
@@ -39,4 +45,5 @@ Pod::Spec.new do |s|
     'GCC_PREPROCESSOR_DEFINITIONS' => "LIBRARY_VERSION=\\@\\\"#{library_version}\\\" LIBRARY_NAME=\\@\\\"flutter-fire-cls\\\"",
     'DEFINES_MODULE' => 'YES'
   }
+  s.user_target_xcconfig = { 'DEBUG_INFORMATION_FORMAT' => 'dwarf-with-dsym' }
 end

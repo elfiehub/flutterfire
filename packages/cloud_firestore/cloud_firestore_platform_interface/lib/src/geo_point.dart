@@ -3,9 +3,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 /// Represents a geographical point by its longitude and latitude
 @immutable
@@ -25,5 +23,5 @@ class GeoPoint {
       other.longitude == longitude;
 
   @override
-  int get hashCode => hashValues(latitude, longitude);
+  int get hashCode => Object.hash(latitude, longitude);
 }

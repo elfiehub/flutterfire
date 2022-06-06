@@ -9,7 +9,6 @@ import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_inte
 import 'package:cloud_firestore_platform_interface/src/internal/pointer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'method_channel_firestore.dart';
 import 'method_channel_query_snapshot.dart';
@@ -106,8 +105,8 @@ class MethodChannelQuery extends QueryPlatform {
       );
 
       return MethodChannelQuerySnapshot(firestore, data!);
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -145,15 +144,19 @@ class MethodChannelQuery extends QueryPlatform {
         snapshotStream =
             MethodChannelFirebaseFirestore.querySnapshotChannel(observerId!)
                 .receiveBroadcastStream(
-          <String, dynamic>{
-            'query': this,
-            'includeMetadataChanges': includeMetadataChanges,
-          },
-        ).listen((snapshot) {
-          controller.add(MethodChannelQuerySnapshot(firestore, snapshot));
-        }, onError: (error, stack) {
-          controller.addError(convertPlatformException(error), stack);
-        });
+                  <String, dynamic>{
+                    'query': this,
+                    'includeMetadataChanges': includeMetadataChanges,
+                  },
+                )
+                .handleError(convertPlatformException)
+                .listen(
+                  (snapshot) {
+                    controller
+                        .add(MethodChannelQuerySnapshot(firestore, snapshot));
+                  },
+                  onError: controller.addError,
+                );
       },
       onCancel: () {
         snapshotStream?.cancel();
@@ -220,7 +223,7 @@ class MethodChannelQuery extends QueryPlatform {
   }
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         runtimeType,
         firestore,
         _pointer,

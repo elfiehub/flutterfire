@@ -61,6 +61,10 @@ export const testFunctionDefaultRegion = functions.https.onCall((data) => {
     return 'array';
   }
 
+  if(data.type === 'rawData') {
+    return data;
+  }
+
   const sampleData: {
     [key: string]: any;
   } = {
@@ -131,7 +135,7 @@ export const testFunctionDefaultRegion = functions.https.onCall((data) => {
     throw new functions.https.HttpsError(
       'invalid-argument',
       'Input and Output types did not match.',
-      e.message
+      (e as any).message
     );
   }
 

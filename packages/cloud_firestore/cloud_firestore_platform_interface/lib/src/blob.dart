@@ -4,13 +4,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show immutable;
 
 /// Represents binary data stored in [Uint8List].
-
 @immutable
 class Blob {
   /// Creates a blob.
@@ -25,5 +23,5 @@ class Blob {
       const DeepCollectionEquality().equals(other.bytes, bytes);
 
   @override
-  int get hashCode => hashList(bytes);
+  int get hashCode => Object.hashAll(bytes);
 }

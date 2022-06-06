@@ -1,18 +1,61 @@
-## 1.0.0-dev.3
+## 2.0.8
 
- - **REFACTOR**: migrate remaining examples & e2e tests to null-safety (#7393).
- - **FEAT**: automatically inject Firebase JS SDKs (#7359).
+ - **REFACTOR**: use `firebase.google.com` link for `homepage` in `pubspec.yaml` (#8738). ([f5ca08b2](https://github.com/firebase/flutterfire/commit/f5ca08b2ca68e674f6c59c458ec26126c9e1b002))
 
-## 1.0.0-dev.2
-
- - **FEAT**: support initializing default `FirebaseApp` instances from Dart (#6549).
-
-## 1.0.0-dev.1
+## 2.0.7
 
  - Update a dependency to the latest release.
 
-## 1.0.0-dev.0
+## 2.0.6
 
+ - Update a dependency to the latest release.
+
+## 2.0.5
+
+ - Update a dependency to the latest release.
+
+## 2.0.4
+
+ - Update a dependency to the latest release.
+
+## 2.0.3
+
+ - Update a dependency to the latest release.
+
+## 2.0.2
+
+ - **FIX**: update all Dart SDK version constraints to Dart >= 2.16.0 (#8184). ([df4a5bab](https://github.com/firebase/flutterfire/commit/df4a5bab3c029399b4f257a5dd658d302efe3908))
+
+## 2.0.1
+
+ - **FIX**: add missing `default_package` entry for web in `pubspec.yaml` (#8139). ([5e6b570f](https://github.com/firebase/flutterfire/commit/5e6b570f8445b0bd2eac8b112a2a6b35ff69b7b6))
+
+## 2.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: deprecated `RemoteConfig` in favour of `FirebaseRemoteConfig` to align Firebase services naming with other plugins. ([99b932be](https://github.com/firebase/flutterfire/commit/99b932bea6d604d500bb29841ad59177165dee60))
+
+## 1.0.4
+
+ - **FIX**: bump Android `compileSdkVersion` to 31 (#7726). ([a9562bac](https://github.com/firebase/flutterfire/commit/a9562bac60ba927fb3664a47a7f7eaceb277dca6))
+
+## 1.0.3
+
+ - Update a dependency to the latest release.
+
+## 1.0.2
+
+ - Update a dependency to the latest release.
+
+## 1.0.1
+
+ - **DOCS**: Fix typos and remove unused imports (#7504).
+
+## 1.0.0
+
+ - **FEAT**: automatically inject Firebase JS SDKs (#7359).
+ - **FEAT**: support initializing default `FirebaseApp` instances from Dart (#6549).
  - **FEAT**: Add initial platform support for Web.
  - Bump "firebase_remote_config" to stable versioning `0.x.x` -> `x.x.x`.
 

@@ -1,3 +1,67 @@
+## 0.0.5+13
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+12
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+11
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+10
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+9
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+8
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+7
+
+ - **FIX**: update all Dart SDK version constraints to Dart >= 2.16.0 (#8184). ([df4a5bab](https://github.com/firebase/flutterfire/commit/df4a5bab3c029399b4f257a5dd658d302efe3908))
+
+## 0.0.5+6
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+5
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+4
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+3
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+2
+
+ - Update a dependency to the latest release.
+
+## 0.0.5+1
+
+ - Update a dependency to the latest release.
+
+## 0.0.5
+
+ - **FEAT**: add token apis and documentation (#7419).
+
+## 0.0.4
+
+ - **FEAT**: add token apis and documentation (#7419).
+
+## 0.0.3+1
+
+ - Update a dependency to the latest release.
+
 ## 0.0.3
 
  - **FEAT**: automatically inject Firebase JS SDKs (#7359).

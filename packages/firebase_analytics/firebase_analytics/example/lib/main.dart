@@ -8,22 +8,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'firebase_config.dart';
 import 'tabs_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: 'AIzaSyAgUhHU8wSJgO5MVNy95tMT07NEjzMOfz0',
-      authDomain: 'react-native-firebase-testing.firebaseapp.com',
-      databaseURL: 'https://react-native-firebase-testing.firebaseio.com',
-      projectId: 'react-native-firebase-testing',
-      storageBucket: 'react-native-firebase-testing.appspot.com',
-      messagingSenderId: '448618578101',
-      appId: '1:448618578101:web:772d484dc9eb15e9ac3efc',
-      measurementId: 'G-0N1G9FLDZE',
-    ),
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
   runApp(const MyApp());
 }
 
@@ -31,6 +21,8 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +31,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      navigatorObservers: <NavigatorObserver>[observer],
       home: MyHomePage(
         title: 'Firebase Analytics Demo',
         analytics: analytics,
+        observer: observer,
       ),
     );
   }
@@ -52,10 +46,12 @@ class MyHomePage extends StatefulWidget {
     Key? key,
     required this.title,
     required this.analytics,
+    required this.observer,
   }) : super(key: key);
 
   final String title;
   final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -81,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
         'bool': true.toString(),
+        'items': [itemCreator()]
       },
     );
     setMessage('logEvent succeeded');
@@ -183,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
       level: 5,
       character: 'witch doctor',
     );
-    await widget.analytics.logLogin(loginMethod: 'sign up');
+    await widget.analytics.logLogin(loginMethod: 'login');
     await widget.analytics.logPostScore(
       score: 1000000,
       level: 70,
@@ -318,7 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute<TabsPage>(
               settings: const RouteSettings(name: TabsPage.routeName),
               builder: (BuildContext context) {
-                return const TabsPage();
+                return TabsPage(widget.observer);
               },
             ),
           );

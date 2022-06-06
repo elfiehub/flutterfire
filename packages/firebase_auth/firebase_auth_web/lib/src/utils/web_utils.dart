@@ -97,10 +97,20 @@ auth_interop.ActionCodeSettings? convertPlatformActionCodeSettings(
 
   Map<String, dynamic> actionCodeSettingsMap = actionCodeSettings.asMap();
 
-  auth_interop.ActionCodeSettings webActionCodeSettings =
-      auth_interop.ActionCodeSettings(
-          url: actionCodeSettings.url,
-          handleCodeInApp: actionCodeSettings.handleCodeInApp);
+  auth_interop.ActionCodeSettings webActionCodeSettings;
+
+  if (actionCodeSettings.dynamicLinkDomain != null) {
+    webActionCodeSettings = auth_interop.ActionCodeSettings(
+      url: actionCodeSettings.url,
+      handleCodeInApp: actionCodeSettings.handleCodeInApp,
+      dynamicLinkDomain: actionCodeSettings.dynamicLinkDomain,
+    );
+  } else {
+    webActionCodeSettings = auth_interop.ActionCodeSettings(
+      url: actionCodeSettings.url,
+      handleCodeInApp: actionCodeSettings.handleCodeInApp,
+    );
+  }
 
   if (actionCodeSettingsMap['android'] != null) {
     webActionCodeSettings.android = auth_interop.AndroidSettings(
@@ -250,13 +260,6 @@ auth_interop.OAuthCredential? convertPlatformCredential(
     );
   }
 
-  if (credential is OAuthCredential) {
-    return auth_interop.OAuthProvider(credential.providerId).credential(
-      credential.idToken,
-      credential.accessToken,
-    );
-  }
-
   if (credential is TwitterAuthCredential) {
     return auth_interop.TwitterAuthProvider.credential(
       credential.accessToken!,
@@ -272,10 +275,14 @@ auth_interop.OAuthCredential? convertPlatformCredential(
   }
 
   if (credential is OAuthCredential) {
-    return auth_interop.OAuthProvider(credential.providerId).credential(
-      credential.idToken,
-      credential.accessToken,
+    auth_interop.OAuthCredentialOptions credentialOptions =
+        auth_interop.OAuthCredentialOptions(
+      accessToken: credential.accessToken,
+      rawNonce: credential.rawNonce,
+      idToken: credential.idToken,
     );
+    return auth_interop.OAuthProvider(credential.providerId)
+        .credential(credentialOptions);
   }
 
   return null;

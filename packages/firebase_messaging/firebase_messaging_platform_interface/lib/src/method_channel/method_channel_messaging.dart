@@ -20,6 +20,7 @@ import 'utils/exception.dart';
 // from the native portion of the plugin. This allows for the plugin to perform
 // any necessary processing in Dart (e.g., populating a custom object) before
 // invoking the provided callback.
+@pragma('vm:entry-point')
 void _firebaseMessagingCallbackDispatcher() {
   // Initialize state necessary for MethodChannels.
   WidgetsFlutterBinding.ensureInitialized();
@@ -160,8 +161,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       }
 
       return RemoteMessage.fromMap(remoteMessageMap);
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -190,8 +191,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
     try {
       await channel
           .invokeMapMethod('Messaging#deleteToken', {'appName': app.name});
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -209,8 +210,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       });
 
       return data?['token'];
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -225,8 +226,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       });
 
       return data?['token'];
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -245,8 +246,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       });
 
       return convertToNotificationSettings(response!);
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -282,8 +283,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       });
 
       return convertToNotificationSettings(response!);
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -297,8 +298,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
       });
 
       _autoInitEnabled = data?['isAutoInitEnabled'] as bool;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -326,8 +327,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
         'badge': badge,
         'sound': sound,
       });
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -355,8 +356,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
         'messageType': messageType,
         'ttl': ttl,
       });
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -367,8 +368,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
         'appName': app.name,
         'topic': topic,
       });
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -379,8 +380,8 @@ class MethodChannelFirebaseMessaging extends FirebaseMessagingPlatform {
         'appName': app.name,
         'topic': topic,
       });
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 }

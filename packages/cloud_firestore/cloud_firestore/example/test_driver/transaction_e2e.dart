@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -48,13 +47,13 @@ void runTransactionTests() {
           42,
         );
 
-        await firestore.runTransaction<int?>((transaction) async {
+        await firestore.runTransaction((transaction) async {
           transaction.set(doc, 21);
         });
 
         expect(await doc.get().then((s) => s.data()), 21);
 
-        await firestore.runTransaction<int?>((transaction) async {
+        await firestore.runTransaction((transaction) async {
           transaction.update(doc, {'value': 0});
         });
 

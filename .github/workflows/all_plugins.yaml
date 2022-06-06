@@ -16,12 +16,10 @@ on:
 
 jobs:
   analyze:
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
@@ -31,19 +29,16 @@ jobs:
         run: melos bootstrap
       - name: "Run Analyze"
         run: melos run analyze
-      # TODO ML Custom has not been migrated to NNBD yet, so ignore checking it.
       - name: "Pub Check"
         run: |
-          melos exec -c 1 --no-private --ignore="*example*" --ignore="*ml_custom*" --ignore="*admob*" -- \
-            pub publish --dry-run
+          melos exec -c 1 --no-private --ignore="*example*" -- \
+            dart pub publish --dry-run
 
   pub_get_check:
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
@@ -56,11 +51,9 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
@@ -77,23 +70,21 @@ jobs:
       - name: "Objective-C"
         if: ${{ success() || failure() }}
         run: |
-          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
+          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" --dir-exists="ios" -- \
             find . -maxdepth 3 -name "*.h" -o -name "*.m" -print0 \| xargs -0 clang-format -i --style=Google --verbose
           ./.github/workflows/scripts/validate-formatting.sh
       - name: "Java"
         if: ${{ success() || failure() }}
         run: |
-          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
+          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" --dir-exists="android" -- \
             find . -maxdepth 12 -name "*.java" -print0 \| xargs -0 java -jar $HOME/google-java-format.jar --replace
           ./.github/workflows/scripts/validate-formatting.sh
 
   build_examples_dart:
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
@@ -109,11 +100,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"

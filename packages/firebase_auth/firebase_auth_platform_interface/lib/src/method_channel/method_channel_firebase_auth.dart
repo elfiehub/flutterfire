@@ -8,12 +8,9 @@ import 'dart:io' show Platform;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../firebase_auth_platform_interface.dart';
-import '../firebase_auth_exception.dart';
-import '../platform_interface/platform_interface_user_credential.dart';
 import 'method_channel_user.dart';
 import 'method_channel_user_credential.dart';
 import 'utils/exception.dart';
@@ -200,8 +197,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
             'host': host,
             'port': port,
           }));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -213,8 +210,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
           _withChannelDefaults({
             'code': code,
           }));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -232,8 +229,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
         operation: result['operation'],
         data: Map<String, dynamic>.from(result['data']),
       );
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -246,8 +243,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
             'code': code,
             'newPassword': newPassword,
           }));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -268,8 +265,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -284,8 +281,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
               })))!;
 
       return List<String>.from(data['providers']);
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -323,8 +320,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
             'email': email,
             'actionCodeSettings': actionCodeSettings?.asMap(),
           }));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -340,8 +337,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
             'email': email,
             'actionCodeSettings': actionCodeSettings.asMap(),
           }));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -357,8 +354,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
               })))!;
 
       this.languageCode = data['languageCode'];
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -399,8 +396,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
     try {
       await channel.invokeMethod(
           'Auth#setSettings', _withChannelDefaults(arguments));
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -422,8 +419,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -444,8 +441,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -464,8 +461,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -486,8 +483,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -508,8 +505,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
 
       currentUser = userCredential.user;
       return userCredential;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -534,8 +531,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
           'Auth#signOut', _withChannelDefaults({}));
 
       currentUser = null;
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -550,8 +547,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
               })))!;
 
       return data['email'];
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 
@@ -614,8 +611,8 @@ class MethodChannelFirebaseAuth extends FirebaseAuthPlatform {
           codeAutoRetrievalTimeout(verificationId);
         }
       });
-    } catch (e) {
-      throw convertPlatformException(e);
+    } catch (e, stack) {
+      convertPlatformException(e, stack);
     }
   }
 }

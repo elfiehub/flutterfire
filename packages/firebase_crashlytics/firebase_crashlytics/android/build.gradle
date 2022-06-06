@@ -20,7 +20,6 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-
 def firebaseCoreProject = findProject(':firebase_core')
 if (firebaseCoreProject == null) {
   throw new GradleException('Could not find the firebase_core FlutterFire plugin, have you added it as a dependency in your pubspec?')
@@ -35,7 +34,7 @@ def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
 }
 
 android {
-  compileSdkVersion 29
+  compileSdkVersion 31
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
